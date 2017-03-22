@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    app:layout_collapseParallaxMultiplier="1.0"
+    tools:context="com.russ.set.rc_car.com.rtpike.rc_car.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:clickable="false"
+            android:contextClickable="true"
+            android:minHeight="?attr/actionBarSize"
+            android:text="RC Truck controller"
+            android:textAlignment="center"
+            android:visibility="visible"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            android:textStyle="bold" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@android:color/holo_green_light"
+        app:layout_anchor="@+id/relativeLayout"
+        app:layout_anchorGravity="center_vertical|center_horizontal"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="316dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/forward_button"
+                android:layout_width="166dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight="0.5"
+                android:text="Forward" />
+
+            <Button
+                android:id="@+id/reverse_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="bottom|center_vertical"
+                android:layout_weight="0.5"
+                android:text="Reverse" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/left_button"
+                android:layout_width="120dp"
+                android:layout_height="166dp"
+                android:layout_below="@+id/forward_button"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_toLeftOf="@+id/right_button"
+                android:layout_toStartOf="@+id/right_button"
+                android:text="Left" />
+
+            <Button
+                android:id="@+id/right_button"
+                android:layout_width="120dp"
+                android:layout_height="166dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/left_button"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="Right" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
