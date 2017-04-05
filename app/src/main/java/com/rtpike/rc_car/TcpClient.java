@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
     /*
@@ -66,7 +67,7 @@ public class TcpClient {
     private PrintWriter mBufferOut;
     // used to read messages from the server
     private BufferedReader mBufferIn;
-    private static final int TIMEOUT  = 10000;  //10 sec
+    private static final int TIMEOUT  = 3000;  //3 sec
 
     /**
      * Constructor of the class. OnMessagedReceived listens for the messages received from server
@@ -136,13 +137,11 @@ public class TcpClient {
             //here you must put your computer's IP address.
             InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 
-
-
             Log.d("TCP", "C: Connecting to " + serverAddr.toString() + " ...");
 
             //create a socket to make the connection with the server
-            socket = new Socket(serverAddr, SERVER_PORT);
-            //socket.setSoTimeout(TIMEOUT);
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(serverAddr, SERVER_PORT), TIMEOUT);
 
             try {
 
