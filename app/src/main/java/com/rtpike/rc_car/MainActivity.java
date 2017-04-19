@@ -1,6 +1,10 @@
 package com.rtpike.rc_car;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +20,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.russ.set.rc_car.R;
+import com.rtpike.rc_car.R;
+
+import static android.net.wifi.SupplicantState.COMPLETED;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -88,6 +94,19 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Check if WiFi is connected
+                SupplicantState supState;
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                supState = wifiInfo.getSupplicantState();
+
+                if (supState != SupplicantState.COMPLETED ) {
+                    Snackbar.make(view, "ERROR: Wifi not connected", Snackbar.LENGTH_LONG)
+                           .setAction("Action", null).show();
+                    toolbar.setTitle("ERROR: Wifi not connected");
+                    return;
+                }
 
                 if (mTask == null) {   //start TCP service
                     mTask = new ConnectTask();

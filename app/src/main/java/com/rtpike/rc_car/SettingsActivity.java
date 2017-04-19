@@ -21,7 +21,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 
-import com.russ.set.rc_car.R;
+import com.rtpike.rc_car.R;
 
 import java.util.List;
 
@@ -269,3 +269,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 }
+
+
+/*
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.pref_settings);
+
+        SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
+        EditTextPreference editTextPref = (EditTextPreference) findPreference("thePrefKey");
+        editTextPref.setSummary(sp.getString("thePrefKey", "Some Default Text"));
+}
+
+    protected void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                          String key) {
+        Preference pref = findPreference(key);
+        if (pref instanceof EditTextPreference) {
+            EditTextPreference etp = (EditTextPreference) pref;
+            pref.setSummary(etp.getText());
+        }
+    }
+
+}
+*/
