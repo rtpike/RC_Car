@@ -15,10 +15,8 @@ import java.net.Socket;
 
     /*
 
-
     ! + cmd
     * + misc command
-
 
     Write to pins
     L + pin
@@ -48,9 +46,11 @@ public class TcpClient {
     public class Constants {
 
         public static final String CLOSED_CONNECTION = "!";// kazy_closed_connection";
-        public static final String LOGIN_NAME = "!";  //kazy_login_name";
+        public static final String LOGIN_NAME = "\\x01";  //kazy_login_name";
 
     }
+
+    //TODO: Us bit 8 special characters for command, \x8F - \xFF
 
     Socket socket;
     private Handler mHandler;
@@ -67,7 +67,7 @@ public class TcpClient {
     private PrintWriter mBufferOut;
     // used to read messages from the server
     private BufferedReader mBufferIn;
-    private static final int TIMEOUT  = 3000;  //3 sec
+    private static final int TIMEOUT  = 2000;  //2 sec
 
     /**
      * Constructor of the class. OnMessagedReceived listens for the messages received from server

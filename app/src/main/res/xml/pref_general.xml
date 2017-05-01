@@ -12,7 +12,7 @@
         android:capitalize="words"
         android:defaultValue="@string/pref_default_display_name"
         android:inputType="textCapWords"
-        android:key="example_ip_address"
+        android:key="pref_ip_address"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -20,9 +20,9 @@
 
     <EditTextPreference
         android:capitalize="words"
-        android:defaultValue="@string/pref_default_port_number"
+        android:defaultValue="3300"
         android:inputType="numberDecimal"
-        android:key="example_port_number"
+        android:key="pref_port_number"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"

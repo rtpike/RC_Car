@@ -2,6 +2,7 @@ package com.rtpike.rc_car;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -9,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,10 +21,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-
-import com.rtpike.rc_car.R;
-
-import static android.net.wifi.SupplicantState.COMPLETED;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -72,8 +70,17 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("UI Handler", "Error connecting");
                         toolbar.setTitle("Error connecting");
                         fab.setBackgroundTintList(getResources().getColorStateList(android.R.color.holo_orange_light));
-                        Snackbar.make(view, "Error connecting...", Snackbar.LENGTH_LONG)
+                        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        String SERVER_IP = sharedPref.getString("pref_ip_address", "");
+                        String error_msg  = "Error connecting to " + SERVER_IP;
+                        Snackbar.make(view, error_msg, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+
+                        //disconnect socket and null out task
+                        if (mTcpClient != null) {
+                            mTcpClient.stopClient();
+                        }
+                        mTask = null;
                         break;
                     case DISCONNECTED:
                         Log.d("UI Handler", "disconnecting");
@@ -326,8 +333,15 @@ public class MainActivity extends AppCompatActivity {
         protected TcpClient doInBackground(String... message) {
 
             Log.i("ConnectTask", "doInBackground: started.");
+
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String SERVER_IP = sharedPref.getString("pref_ip_address", "");
+            int SERVER_PORT = Integer.valueOf(sharedPref.getString("pref_port_number", "0")); //There is not way to store a string in the XML
+
             try {
-                //we create a TCPClient object and
+
+
+                        //we create a TCPClient object and
                 mTcpClient = new TcpClient(mHandler, new TcpClient.OnMessageReceived() {
                     @Override
                     //here the messageReceived method is implemented
@@ -335,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                         //this method calls the onProgressUpdate
                         publishProgress(message);
                     }
-                });
+                }, SERVER_IP, SERVER_PORT);
 
                 mTcpClient.run();
             } catch (Exception e) {
